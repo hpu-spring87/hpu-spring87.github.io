@@ -55,6 +55,7 @@ a {
 
 .page-header {
   color: #fff;
+  position: relative;
   text-align: center;
   background-color: #F44336;
   background-image: linear-gradient(120deg, #F44336, #E57373); }
@@ -77,7 +78,7 @@ a {
 
 @media screen and (min-width: 64em) {
   .project-name {
-    font-size: 3.25rem; } }
+    font-size: 2.25rem; } }
 
 @media screen and (min-width: 42em) and (max-width: 64em) {
   .project-name {
@@ -112,7 +113,7 @@ a {
   margin-top: 2rem;
   margin-bottom: 1rem;
   font-weight: normal;
-  color: #159957; }
+  color: #F44336; }
 .main-content p {
   margin-bottom: 1em; }
 .main-content code {
@@ -243,3 +244,21 @@ a {
 @media screen and (max-width: 42em) {
   .site-footer {
     font-size: 0.9rem; } }
+.appicons{
+  width: 4rem;
+  height: 4rem;
+  float: left;
+  background: #FFCDD2;
+  border-radius: 6px;
+  margin-right: 1.1rem;
+}
+.giticon{
+  width: 4rem;
+  height: 4rem;
+  position: absolute;
+  background: #E57373;
+  border-radius: 6px;
+  margin-right: 1.1rem;
+  top: 1.1rem;
+  right: 0;
+}
