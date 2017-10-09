@@ -190,17 +190,20 @@
                                 </div>
                             </div>
                         </div>
-                       <!--  <div class="col-md-4 col-sm-6">
+                       <div class="col-md-4 col-sm-6">
                             <div class="project-item">
                                 <img src="img/4.jpg" alt="">
                                 <div class="project-hover">
                                     <div class="inside">
-                                        <h5><a href="#">Pellentesque porta ligula</a></h5>
-                                        <p>Quisque mattis sit amet dolor eu scelerisque. Vivamus bibendum massa et nisl tempus commodo.</p>
+                                    <!-- href="git/git_cheatsheet.htm" -->
+                                        <a onclick="toGit()">
+                                            <h5>Git小结</h5>
+                                            <p>常用Git备忘录</p>
+                                        </a>
                                     </div>
                                 </div>
                             </div>
-                        </div> -->
+                        </div>
                        <!--  <div class="col-md-4 col-sm-6">
                             <div class="project-item">
                                 <img src="img/5.jpg" alt="">
@@ -280,10 +283,20 @@
 
          <!-- 处理提交留言逻辑 -->
          <script type="text/javascript">
+
+           function toGit(){
+              if(/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
+                   //如果设备是手机，则不能够打开网页，给出提示
+                   //window.location.href = "https://www.baidu.com/";
+                   alert('该页面比较特殊，请在PC上浏览...');
+                } else {
+                    //如果设备电脑，则打开对应git页面
+                    window.location.href = "git/git_cheatsheet.htm";
+                }
+           }
+
            function sendMsg(){
-            
                 Bmob.initialize("c45cd4b48a6a895f7f2f7b9ece9bca57", "4b01f4bdb3c1efbbf51668d269309d4f");
-    
                 var PrivateMsgObject = Bmob.Object.extend("PrivateMsgObject");
                 var testObject = new PrivateMsgObject();
                   testObject.save({
@@ -305,7 +318,5 @@
         <script src="js/min/plugins.min.js"></script>
         <script src="js/min/main.min.js"></script>
         <script src="js/bmob-min.js"></script>
-    
-
     </body>
 </html>
