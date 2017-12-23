@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>联系</title>
+    <meta name="联系" content="chunsheng.me 联系"/>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;amp;lang=en" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css" rel="stylesheet">
+    <link href="styles/main.css" rel="stylesheet">
+  </head>
+  <body id="top">
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header"><a href="contact.html" id="contact-button" class="mdl-button mdl-button--fab mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--accent mdl-color-text--accent-contrast mdl-shadow--4dp"><i class="material-icons">mail</i></a>
+      <header class="mdl-layout__header mdl-layout__header--waterfall site-header">
+        <div class="mdl-layout__header-row site-logo-row"><span class="mdl-layout__title">
+            <div class="site-logo"></div><span class="site-description">不管什么时候，静下心来才有出路。</span></span></div>
+        <div class="mdl-layout__header-row site-navigation-row mdl-layout--large-screen-only">
+          <nav class="mdl-navigation mdl-typography--body-1-force-preferred-font"><a class="mdl-navigation__link" href="index.html">首页</a><a class="mdl-navigation__link" href="portfolio.html">归档</a><a class="mdl-navigation__link" href="about.html">关于</a><!-- <a class="mdl-navigation__link" href="contact.html">联系</a> -->
+          </nav>
+        </div>
+      </header>
+      <div class="mdl-layout__drawer mdl-layout--small-screen-only">
+        <nav class="mdl-navigation mdl-typography--body-1-force-preferred-font"><a class="mdl-navigation__link" href="index.html">首页</a><a class="mdl-navigation__link" href="portfolio.html">归档</a><a class="mdl-navigation__link" href="about.html">关于</a><!-- <a class="mdl-navigation__link" href="contact.html">联系</a> -->
+        </nav>
+      </div>
+      <main class="mdl-layout__content">
+        <div class="site-content">
+          <div class="mdl-grid site-max-width">
+            <div class="mdl-cell mdl-cell--12-col mdl-card mdl-shadow--4dp page-content">
+              <div class="mdl-card__title">
+                <h1 class="mdl-card__title-text">邮件联系</h1>
+              </div>
+              <div class="mdl-card__media"><img class="article-image" src="img/contact.jpg" border="0" alt="Contact">
+              </div>
+              <div class="mdl-grid site-copy">
+                <div class="mdl-cell mdl-cell--12-col"><div class="mdl-card__supporting-text">
+  <p>填写下面信息，邮件联系。</p>
+  <form name="form1" action="mailto:1642084864@qq.com" method="POST" onSubmit="check();" class="form-contact">
+      <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+          <input class="mdl-textfield__input" pattern="*" type="text" id="Name" >
+          <label class="mdl-textfield__label" for="Name">昵称...</label>
+          <span class="mdl-textfield__error">输入不合法</span>
+      </div>
+      <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+          <input class="mdl-textfield__input" type="text" id="Email" >
+          <label class="mdl-textfield__label" for="Email">邮箱</label>
+      </div>
+      <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+          <textarea class="mdl-textfield__input" type="text" rows="5" id="note" ></textarea>
+          <label class="mdl-textfield__label" for="note">正文</label>
+      </div>
+      <p>
+          <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" type="submit">
+              发送邮件
+          </button>
+      </p>
+  </form>
+</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <footer class="mdl-mini-footer">
+          <div class="footer-container">
+            <div class="mdl-logo">Copyright &copy; 2018 <a href="http://chunsheng.me" target="_blank">chunsheng.me</a></div>
+            <ul class="mdl-mini-footer__link-list">
+              <li><a href="./old/index.html">回到旧版</a></li>
+            </ul>
+          </div>
+        </footer>
+      </main>
+      <script type="text/javascript">
+        function check(){
+          document.form1.action = "mailto:1642084864@qq.com?subject="+
+                                   document.getElementById("Name").value+"&body="+
+                                   document.getElementById("note").value;
+
+        }
+      </script>
+      <script src="https://code.getmdl.io/1.3.0/material.min.js" defer></script>
+    </div>
+  </body>
+</html>
