@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>SuperCatch归档详情</title>
+    <meta name="SuperCatch归档详情" content="chunsheng.me 归档详情"/>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;amp;lang=en" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css" rel="stylesheet">
+    <link href="../styles/main.css" rel="stylesheet">
+  </head>
+  <body id="top">
+    <link href="http://cdn.bootcss.com/highlight.js/8.0/styles/monokai_sublime.min.css" rel="stylesheet">  
+    <script src="http://cdn.bootcss.com/highlight.js/8.0/highlight.min.js"></script>  
+    <script >hljs.initHighlightingOnLoad();</script>
+
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header"><a href="../contact.html" id="contact-button" class="mdl-button mdl-button--fab mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--accent mdl-color-text--accent-contrast mdl-shadow--4dp"><i class="material-icons">mail</i></a>
+      <header class="mdl-layout__header mdl-layout__header--waterfall site-header">
+        <div class="mdl-layout__header-row site-logo-row"><span class="mdl-layout__title">
+            <div class="site-logo"></div><span class="site-description">不管什么时候，静下心来才有出路。</span></span></div>
+        <div class="mdl-layout__header-row site-navigation-row mdl-layout--large-screen-only">
+          <nav class="mdl-navigation mdl-typography--body-1-force-preferred-font"><a class="mdl-navigation__link" href="index.html">首页</a><a class="mdl-navigation__link" href="portfolio.html">归档</a><a class="mdl-navigation__link" href="about.html">关于</a><!-- <a class="mdl-navigation__link" href="contact.html">联系</a> -->
+          </nav>
+        </div>
+      </header>
+      <div class="mdl-layout__drawer mdl-layout--small-screen-only">
+        <nav class="mdl-navigation mdl-typography--body-1-force-preferred-font"><a class="mdl-navigation__link" href="index.html">首页</a><a class="mdl-navigation__link" href="portfolio.html">归档</a><a class="mdl-navigation__link" href="about.html">关于</a><!-- <a class="mdl-navigation__link" href="contact.html">联系</a> -->
+        </nav>
+      </div>
+      <main class="mdl-layout__content">
+        <div class="site-content">
+          <div class="mdl-grid site-max-width">
+            <div class="mdl-cell mdl-cell--12-col mdl-card mdl-shadow--4dp page-content">
+              <div class="mdl-card__title">
+                <h1 class="mdl-card__title-text">SuperCatch</h1>
+              </div>
+              <div class="mdl-card__media"><img class="article-image" src="../img/portfolio-header.jpg" border="0" alt="Portfolio Page">
+              </div>
+              <div class="mdl-grid site-copy">
+                <div class="mdl-cell mdl-cell--12-col"><p><h3 class="mdl-cell mdl-cell--12-col mdl-typography--headline">简介</h3></p>
+<div class="mdl-cell mdl-cell--10-col mdl-card__supporting-text no-padding ">
+    <p>捕获应用Crash，重启应用或者上报Crash日志，让APP体验更人性化。</p>
+</div>
+<div class="mdl-grid">
+<h3 class="mdl-cell mdl-cell--12-col mdl-typography--headline">使用</h3>
+<div class="mdl-cell mdl-cell--12-col mdl-card__supporting-text no-padding ">
+    <pre>
+      <code class="lang-java">
+  工程依赖：
+  compile 'me.chunsheng:smilecatch:0.0.1'
+
+  package me.chunsheng.supercatch;
+  import android.app.Application;
+  import android.content.Intent;
+  import me.chunsheng.smilecatch.CrashHandler;
+  import me.chunsheng.smilecatch.CrashListener;
+
+  /**
+   * Copyright © 2017 chunsheng. All Rights Reserved.
+   * Author: wei_spring
+   * Date: 2017/12/19
+   * Email:weichunsheng3611@gmail.com
+   * Function: 自定义Application
+   */
+  public class SuperCatchApplication extends Application implements CrashListener {
+
+      public static final int DefaultRestart = 1;
+      public static final int DefaultCrashPage = 2;
+      public static final int CustomerCrashPage = 3;
+
+      @Override
+      public void onCreate() {
+          super.onCreate();
+          //初始化CrashHandler
+          CrashHandler.getInstance(this).crashListener(this).crashSave(true);
+
+      }
+
+      /**
+       * 监听crash，可以在这里处理crash，重启APP或者上报crash日志
+       *
+       * @param thread
+       * @param throwable
+       */
+      @Override
+      public void onCrashListener(Thread thread, Throwable throwable) {
+
+          int catchType = 2;
+          switch (catchType) {
+              case DefaultRestart:
+                  try {
+                      Intent intent = new Intent(this, Class.forName("me.chunsheng.Activity"));
+                      intent.putExtra("crash", true);
+                      intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
+                              | Intent.FLAG_ACTIVITY_CLEAR_TASK
+                              | Intent.FLAG_ACTIVITY_NEW_TASK);
+                      startActivity(intent);
+                      android.os.Process.killProcess(android.os.Process.myPid());
+                      System.exit(0);
+                  } catch (Exception e) {
+                      e.printStackTrace();
+                  }
+                  break;
+              case DefaultCrashPage:
+                  try {
+                      Intent intent = new Intent(this, Class.forName("me.chunsheng.Activity"));
+                      intent.putExtra("crash", true);
+                      intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
+                              | Intent.FLAG_ACTIVITY_CLEAR_TASK
+                              | Intent.FLAG_ACTIVITY_NEW_TASK);
+                      startActivity(intent);
+                      android.os.Process.killProcess(android.os.Process.myPid());
+                      System.exit(0);
+                  } catch (Exception e) {
+                      e.printStackTrace();
+                  }
+                  break;
+              case CustomerCrashPage:
+                  //自定义Crash提示页面
+                  break;
+
+          }
+
+      }
+  }
+      </code>
+    </pre>
+</div>
+</div>
+
+<div class="mdl-grid">
+  <div class="mdl-cell mdl-cell--3-col mdl-card__supporting-text no-padding ">
+      <a class="mdl-button mdl-button--raised mdl-js-button mdl-js-ripple-effect mdl-button--accent" href="https://github.com/hpu-spring87/SuperCatch">Go Github<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></a>
+  </div>
+</div>
+</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <footer class="mdl-mini-footer">
+          <div class="footer-container">
+            <div class="mdl-logo">Copyright &copy; 2018 <a href="http://chunsheng.me" target="_blank">chunsheng.me</a></div>
+            <ul class="mdl-mini-footer__link-list">
+              <li><a href="./old/index.html">回到旧版</a></li>
+            </ul>
+          </div>
+        </footer>
+      </main>
+      <script src="https://code.getmdl.io/1.3.0/material.min.js" defer></script>
+    </div>
+  </body>
+</html>
