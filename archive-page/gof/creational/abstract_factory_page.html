@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Abstract Factory(抽象工厂)</title>
+    <meta name="Abstract Factory(抽象工厂)" content="chunsheng.me 归档详情"/>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;amp;lang=en" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css" rel="stylesheet">
+    <link href="../../../styles/main.css" rel="stylesheet">
+  </head>
+  <body id="top">
+    <link href="http://cdn.bootcss.com/highlight.js/8.0/styles/monokai_sublime.min.css" rel="stylesheet">  
+    <script src="http://cdn.bootcss.com/highlight.js/8.0/highlight.min.js"></script>  
+    <script >hljs.initHighlightingOnLoad();</script>
+
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header"><a href="../contact.html" id="contact-button" class="mdl-button mdl-button--fab mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--accent mdl-color-text--accent-contrast mdl-shadow--4dp"><i class="material-icons">mail</i></a>
+      <header class="mdl-layout__header mdl-layout__header--waterfall site-header">
+        <div class="mdl-layout__header-row site-logo-row"><span class="mdl-layout__title">
+            <div class="site-logo"></div><span class="site-description">Abstract Factory(抽象工厂)</span></span></div>
+        <div class="mdl-layout__header-row site-navigation-row mdl-layout--large-screen-only">
+          <nav class="mdl-navigation mdl-typography--body-1-force-preferred-font"><a class="mdl-navigation__link" href="../../../index.html">首页</a><a class="mdl-navigation__link" href="../../../portfolio.html">归档</a><a class="mdl-navigation__link" href="../../../about.html">关于</a><!-- <a class="mdl-navigation__link" href="contact.html">联系</a> -->
+          </nav>
+        </div>
+      </header>
+      <div class="mdl-layout__drawer mdl-layout--small-screen-only">
+        <nav class="mdl-navigation mdl-typography--body-1-force-preferred-font"><a class="mdl-navigation__link" href="../../../index.html">首页</a><a class="mdl-navigation__link" href="../../../portfolio.html">归档</a><a class="mdl-navigation__link" href="../../../about.html">关于</a><!-- <a class="mdl-navigation__link" href="contact.html">联系</a> -->
+        </nav>
+      </div>
+      <main class="mdl-layout__content">
+        <div class="site-content">
+          <div class="mdl-grid site-max-width">
+            <div class="mdl-cell mdl-cell--12-col mdl-card mdl-shadow--4dp page-content">
+              <div class="mdl-card__title">
+                <h1 class="mdl-card__title-text"><b>Abstract Factory(抽象工厂)</b></h1>
+              </div>
+              <div class="mdl-cell mdl-cell--12-col"><p><h3 class="mdl-cell mdl-cell--12-col mdl-typography--headline">使用场景</h3></p>
+              <div >
+                  <ul>
+                    <li>支持相关或依赖对象的族（族）</li>
+                    <li>封装平台依赖关系以使应用程序可移植</li>
+                    <li>防止客户端代码使用‘new’关键字</li>
+                    <li>以最小的变化轻松交换底层平台</li>
+                  </ul>
+              </div>
+              </div>
+              <div class="mdl-cell mdl-cell--12-col"><p><h3 class="mdl-cell mdl-cell--12-col mdl-typography--headline">目的</h3></p>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;提供用于创建相关或从属对象族的接口，而无需指定其具体类。
+              </div>
+               <div class="mdl-cell mdl-cell--12-col"><p><h3 class="mdl-cell mdl-cell--12-col mdl-typography--headline">组件</h3></p>
+                <div >
+                    <ul>
+                      <li>抽象工厂类(public)</li>
+                      <li>各种家庭的工厂实施(protected)</li>
+                      <li>各种产品的接口(public)</li>
+                      <li>各种家庭的产品实施集(protected)</li>
+                    </ul>
+                </div>
+              </div>
+              <div class="mdl-cell mdl-cell--12-col"><p><h3 class="mdl-cell mdl-cell--12-col mdl-typography--headline">结构体</h3></p>
+                <div class="mdl-card__media">
+                  <img class="article-image" src="../../../img/gof/abstruct_factory_structure.png" border="0" alt="Portfolio Page">
+                </div>
+              </div>
+              <div class="mdl-cell mdl-cell--12-col"><p><h3 class="mdl-cell mdl-cell--12-col mdl-typography--headline">代码实现</h3></p>
+              <pre>
+                <code class="lang-java">
+1. Define interfaces for different types products/objects. 
+   Each family will have all these parts.
+
+    package com.jaypeesoft.dp.abstractfactory;
+
+    public interface Engine {
+
+      public void design();
+      public void manufacture();
+      public void test();
+
+    }
+
+    package com.jaypeesoft.dp.abstractfactory;
+
+    public interface Tyre {
+
+      public void design();
+      public void manufacture();
+
+    }
+2. Create sets of implementation subclasses for the above interfaces. 
+   Classes are access protected to prohibit instantiations in client 
+   modules using the 'new' operator.
+
+    package com.jaypeesoft.dp.abstractfactory;
+
+    class CarEngine implements Engine {
+
+      @Override
+      public void design() {
+        System.out.println("Designing Car Engine");
+      }
+
+      @Override
+      public void manufacture() {
+        System.out.println("Manufacturing Car Engine");
+      }
+
+      @Override
+      public void test() {
+        System.out.println("Testing Car Engine");
+      }
+
+    }
+    package com.jaypeesoft.dp.abstractfactory;
+
+    class TruckEngine implements Engine {
+
+      @Override
+      public void design() {
+        System.out.println("Designing Truck Engine");
+      }
+
+      @Override
+      public void manufacture() {
+        System.out.println("Manufacturing Truck Engine");
+      }
+
+      @Override
+      public void test() {
+        System.out.println("Testing Truck Engine");
+      }
+
+    }
+    package com.jaypeesoft.dp.abstractfactory;
+
+    class CarTyre implements Tyre {
+
+      @Override
+      public void design() {
+        System.out.println("Designing Car Tyre");
+      }
+
+      @Override
+      public void manufacture() {
+        System.out.println("Manufacturing Car Tyre");
+      }
+
+    }
+    package com.jaypeesoft.dp.abstractfactory;
+
+    class TruckTyre implements Tyre {
+
+      @Override
+      public void design() {
+        System.out.println("Designing Truck Tyre");
+      }
+
+      @Override
+      public void manufacture() {
+        System.out.println("Manufacturing Truck Tyre");
+      }
+
+    }
+
+3. Create a Abstract Factory class with factory method 'getFactory()'. 
+   Clients can use this method to get an object the required factory. 
+   This example uses both Singleton and Factory Method patterns for better design.
+
+    package com.jaypeesoft.dp.abstractfactory;
+
+    public abstract class Factory {
+
+      /* Singleton Factory objects */
+      private static Factory carFactory = null;
+      private static Factory truckFactory = null;
+
+      public abstract Engine getEngine();
+      public abstract Tyre getTyre();
+
+      /*
+       * This is the factory method exposed to the client.
+       * Client requests for a factory instance by passing the type.
+       * Client does not need to know about which & how
+       * object is created internally.
+       */
+      public static Factory getFactory(String vehicleType)
+          throws UnknownVehicleException {
+
+        if (vehicleType == null) {
+          return null;
+        }
+
+        Factory factory = null;
+        switch (vehicleType) {
+          case "car":
+            if (carFactory == null)
+              carFactory = new CarFactory();
+            factory = carFactory;
+            break;
+          case "truck":
+            if (truckFactory == null)
+              truckFactory = new TruckFactory();
+            factory = truckFactory;
+            break;
+          default:
+            throw new UnknownVehicleException();
+        }
+
+        return factory;
+      }
+    }
+
+4. Create Factory implementations. 
+   Classes are protected to prohibit direct access in client modules.
+
+    package com.jaypeesoft.dp.abstractfactory;
+
+    class CarFactory extends Factory {
+
+      @Override
+      public Engine getEngine() {
+        return new CarEngine();
+      }
+
+      @Override
+      public Tyre getTyre() {
+        return new CarTyre();
+      }
+
+    }
+
+    package com.jaypeesoft.dp.abstractfactory;
+
+    public class TruckFactory extends Factory {
+
+      TruckFactory() {}
+
+      @Override
+      public Engine getEngine() {
+        return new TruckEngine();
+      }
+
+      @Override
+      public Tyre getTyre() {
+        return new TruckTyre();
+      }
+
+    }
+
+5. The client code. Client is exposed to only the 
+   Abstract Factory class and the interfaces.
+
+    package com.jaypeesoft.dp.client;
+
+    import java.util.Scanner;
+
+    import com.jaypeesoft.dp.abstractfactory.Engine;
+    import com.jaypeesoft.dp.abstractfactory.Factory;
+    import com.jaypeesoft.dp.abstractfactory.Tyre;
+    import com.jaypeesoft.dp.abstractfactory.UnknownVehicleException;
+
+    public class AbstractFactoryClient {
+
+      public static void main(String[] args) {
+
+        Scanner in = new Scanner(System.in);
+        String vehicleType = in.nextLine().toLowerCase();
+
+        /* Get the factory instance */
+        Factory factory;
+        try {
+          factory = Factory.getFactory(vehicleType);
+
+          /* Get the Engine from the factory */
+          Engine engine = factory.getEngine();
+          engine.design();
+          engine.manufacture();
+          engine.test();
+
+          /* Get the Tyre from the factory */
+          Tyre tyre = factory.getTyre();
+          tyre.design();
+          tyre.manufacture();
+
+        } catch (UnknownVehicleException e) {
+          System.out.println("Invalid vehicle type entered!");
+        }
+
+        in.close();
+      }
+
+    }
+
+<b>Output</b>
+
+[input1]
+    Car
+[output1]
+    Designing Car Engine
+    Manufacturing Car Engine
+    Testing Car Engine
+    Designing Car Tyre
+    Manufacturing Car Tyre
+
+[input2]
+    Bus
+[output2]
+    Invalid vehicle type entered!  
+                </code>
+              </pre>
+              </div>
+              <div class="mdl-cell mdl-cell--12-col"><p><h3 class="mdl-cell mdl-cell--12-col mdl-typography--headline">优点</h3></p>
+              <div >
+                  <ul>
+                    <li>代码高度解耦</li>
+                    <li>Abstract Factory为一个系列中的所有产品提供单点访问</li>
+                    <li>可以轻松支持新产品系列</li>
+                  </ul>
+              </div>
+              </div>
+              <div class="mdl-cell mdl-cell--12-col"><p><h3 class="mdl-cell mdl-cell--12-col mdl-typography--headline">缺点</h3></p>
+              <div >
+                  <ul>
+                    <li>更多抽象层，增加了复杂性</li>
+                    <li>如果对一个工厂的任何底层细节有任何更改，则可能需要为所有工厂修改该接口</li>
+                  </ul>
+              </div>
+              </div>
+              <div class="mdl-cell mdl-cell--12-col"><p><h3 class="mdl-cell mdl-cell--12-col mdl-typography--headline">真实世界例子</h3></p>
+              <HR style="FILTER: progid:DXImageTransform.Microsoft.Shadow(color:#987cb9,direction:145,strength:15)" width="100%" color=#987cb9 SIZE=1>
+               <p>
+                  提供对两个不同数据源（例如SQL数据库和XML文件）的数据访问。您有两个不同的数据访问类（数据存储的网关）。两者都继承自定义要实现的常用方法的基类（例如，加载，保存，删除）。应使用哪个数据源不应改变客户端代码检索数据访问类的方式。您的抽象工厂知道应使用哪个数据源并根据请求返回适当的实例。工厂将此实例作为基类类型返回。
+                </p>
+              </div>
+              <div class="mdl-cell mdl-cell--12-col"><p><h3 class="mdl-cell mdl-cell--12-col mdl-typography--headline">软件例子</h3></p>
+                &nbsp;&nbsp;&nbsp;&nbsp;依赖注入
+              </div>
+              <div class="mdl-cell mdl-cell--12-col"><p><h3 class="mdl-cell mdl-cell--12-col mdl-typography--headline">Java SDK 例子</h3></p>
+              <div >
+                  <ul>
+                    <li>javax.xml.parsers.DocumentBuilderFactory newInstance()</li>
+                    <li>javax.xml.transform.TransformerFactory newInstance()</li>
+                    <li>javax.xml.xpath.XPathFactory newInstance()</li>
+                  </ul>
+              </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <footer class="mdl-mini-footer">
+          <div class="footer-container">
+            <div class="mdl-logo">Copyright &copy; 2019 <a href="http://chunsheng.me" target="_blank">chunsheng.me</a></div>
+          </div>
+        </footer>
+      </main>
+      <script src="https://code.getmdl.io/1.3.0/material.min.js" defer></script>
+    </div>
+  </body>
+</html>
