@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Builder(建造者)</title>
+    <meta name="Builder(建造者)" content="chunsheng.me 归档详情"/>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;amp;lang=en" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css" rel="stylesheet">
+    <link href="../../../styles/main.css" rel="stylesheet">
+  </head>
+  <body id="top">
+    <link href="http://cdn.bootcss.com/highlight.js/8.0/styles/monokai_sublime.min.css" rel="stylesheet">  
+    <script src="http://cdn.bootcss.com/highlight.js/8.0/highlight.min.js"></script>  
+    <script >hljs.initHighlightingOnLoad();</script>
+
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header"><a href="../contact.html" id="contact-button" class="mdl-button mdl-button--fab mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--accent mdl-color-text--accent-contrast mdl-shadow--4dp"><i class="material-icons">mail</i></a>
+      <header class="mdl-layout__header mdl-layout__header--waterfall site-header">
+        <div class="mdl-layout__header-row site-logo-row"><span class="mdl-layout__title">
+            <div class="site-logo"></div><span class="site-description">Builder(建造者)</span></span></div>
+        <div class="mdl-layout__header-row site-navigation-row mdl-layout--large-screen-only">
+          <nav class="mdl-navigation mdl-typography--body-1-force-preferred-font"><a class="mdl-navigation__link" href="../../../index.html">首页</a><a class="mdl-navigation__link" href="../../../portfolio.html">归档</a><a class="mdl-navigation__link" href="../../../about.html">关于</a><!-- <a class="mdl-navigation__link" href="contact.html">联系</a> -->
+          </nav>
+        </div>
+      </header>
+      <div class="mdl-layout__drawer mdl-layout--small-screen-only">
+        <nav class="mdl-navigation mdl-typography--body-1-force-preferred-font"><a class="mdl-navigation__link" href="../../../index.html">首页</a><a class="mdl-navigation__link" href="../../../portfolio.html">归档</a><a class="mdl-navigation__link" href="../../../about.html">关于</a><!-- <a class="mdl-navigation__link" href="contact.html">联系</a> -->
+        </nav>
+      </div>
+      <main class="mdl-layout__content">
+        <div class="site-content">
+          <div class="mdl-grid site-max-width">
+            <div class="mdl-cell mdl-cell--12-col mdl-card mdl-shadow--4dp page-content">
+              <div class="mdl-card__title">
+                <h1 class="mdl-card__title-text"><b>Builder(建造者)</b></h1>
+              </div>
+              <div class="mdl-cell mdl-cell--12-col"><p><h3 class="mdl-cell mdl-cell--12-col mdl-typography--headline">使用场景</h3></p>
+              <div >
+                  <ul>
+                    <li>当需要通过几个步骤创建对象时候，避免处理不一致的对象</li>
+                    <li>避免过多的构造函数参数</li>
+                    <li>构造一个应该是不可变的对象</li>
+                    <li>封装完整的创建逻辑</li>
+                  </ul>
+              </div>
+              </div>
+              <div class="mdl-cell mdl-cell--12-col"><p><h3 class="mdl-cell mdl-cell--12-col mdl-typography--headline">目的</h3></p>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;将复杂对象的构造与其表示分开，以便相同的构造过程可以创建不同的表示。
+              </div>
+               <div class="mdl-cell mdl-cell--12-col"><p><h3 class="mdl-cell mdl-cell--12-col mdl-typography--headline">组件</h3></p>
+                <div >
+                    <ul>
+                      <li>Builder类指定用于创建Product对象的部分的抽象接口</li>
+                      <li>ConcreteBuilder通过实现Builder接口构建并组合产品的各个部分，它定义并跟踪其创建的表示，并提供用于保存产品的界面</li>
+                      <li>Director类使用Builder接口构造复杂对象</li>
+                      <li>Product表示正在构建的复杂对象</li>
+                    </ul>
+                </div>
+              </div>
+              <div class="mdl-cell mdl-cell--12-col"><p><h3 class="mdl-cell mdl-cell--12-col mdl-typography--headline">结构体</h3></p>
+                <div class="mdl-card__media">
+                  <img class="article-image" src="../../../img/gof/builder_structure.jpg" border="0" alt="Portfolio Page">
+                </div>
+              </div>
+              <div class="mdl-cell mdl-cell--12-col"><p><h3 class="mdl-cell mdl-cell--12-col mdl-typography--headline">代码实现</h3></p>
+              <pre>
+                <code class="lang-java">
+1. Define the Product (House) that gets assembled in the builder pattern.
+
+  package me.chunsheng.gof.builder;
+  /**
+   * Created by wei_spring on 2019/5/12.
+   */
+  public class House {
+
+      private String floorType;
+      private String wallType;
+      private String roofType;
+
+      public String getFloorType() {
+          return floorType;
+      }
+
+      public void setFloorType(String floorType) {
+          this.floorType = floorType;
+      }
+
+      public String getWallType() {
+          return wallType;
+      }
+
+      public void setWallType(String wallType) {
+          this.wallType = wallType;
+      }
+
+      public String getRoofType() {
+          return roofType;
+      }
+
+      public void setRoofType(String roofType) {
+          this.roofType = roofType;
+      }
+
+      public String toString() {
+          return new String("\nConstructing House \n FloorType: " + floorType
+                  + "\n WallType:  " + wallType + "\n RoofType:  " + roofType);
+      }
+  }
+2. Define the Builder interface (or abstract class) along with Concrete Builders. The Builder interface contains methods for the step by step construction of the product. It also has a build method for retrieving the product object.
+
+    package me.chunsheng.gof.builder;
+
+    /**
+     * @author wei_spring
+     * @version 2019-05-19 :17:55
+     * @see .
+     */
+    public interface HouseBuilder {
+        public HouseBuilder buildFloor();
+
+        public HouseBuilder buildWall();
+
+        public HouseBuilder buildRoof();
+
+        public House build();
+    }
+
+
+3. Concrete Builders implement the Builder interface. A Concrete Builder is responsible 
+   for creating and assembling a Product object. Different Concrete Builders create and 
+   assemble Product objects differently.
+
+    package me.chunsheng.gof.builder;
+
+    /**
+     * @author wei_spring
+     * @version 2019-05-19 :17:56
+     * @see .
+     */
+    public class ConcreteHouseBuilder implements HouseBuilder {
+
+        private House house;
+
+        public ConcreteHouseBuilder() {
+            house = new House();
+        }
+
+        @Override
+        public HouseBuilder buildFloor() {
+            house.setFloorType("concrete");
+            return this;
+        }
+
+        @Override
+        public HouseBuilder buildWall() {
+            house.setWallType("concrete");
+            return this;
+        }
+
+        @Override
+        public HouseBuilder buildRoof() {
+            house.setRoofType("concrete");
+            return this;
+        }
+
+        @Override
+        public House build() {
+            return house;
+        }
+    }
+
+    package me.chunsheng.gof.builder;
+
+    /**
+     * @author wei_spring
+     * @version 2019-05-19 :17:57
+     * @see .
+     */
+    public class WoodenHouseBuilder implements HouseBuilder {
+
+        private House house;
+
+        public WoodenHouseBuilder() {
+            house = new House();
+        }
+
+        @Override
+        public HouseBuilder buildFloor() {
+            house.setFloorType("wood");
+            return this;
+        }
+
+        @Override
+        public HouseBuilder buildWall() {
+            house.setWallType("wood");
+            return this;
+        }
+
+        @Override
+        public HouseBuilder buildRoof() {
+            house.setRoofType("wood");
+            return this;
+        }
+
+        @Override
+        public House build() {
+            return house;
+        }
+    }
+
+
+4. A Director object is responsible for constructing a Product. It does this via the Builder 
+   interface to a Concrete Builder. It constructs a Product via the various Builder methods. The director class ensures that all the required operations are performed before the object is returned to the client in a 'consistent' state.
+    
+    package me.chunsheng.gof.builder;
+
+    /**
+     * @author wei_spring
+     * @version 2019-05-19 :18:06
+     * @see .
+     */
+    public class HouseBuildDirector {
+
+        private HouseBuilder builder;
+
+        public HouseBuildDirector(final HouseBuilder builder) {
+            this.builder = builder;
+        }
+
+        public House construct() {
+            /* call the necessary methods and return the consistent object*/
+            return builder.buildFloor().buildWall().buildRoof().build();
+        }
+    }
+
+
+5. The client code. The Client uses different builder objects to create different 
+    types of products. However, the construction process is same.
+
+    package me.chunsheng.gof.builder;
+
+    /**
+     * @author wei_spring
+     * @version 2019-05-19 :18:07
+     * @see .
+     */
+    public class BuilderClient {
+
+        public static void main(final String[] arguments) {
+
+            /* Construct a concrete house */
+            HouseBuilder builder = new ConcreteHouseBuilder();
+            HouseBuildDirector carBuildDirector = new HouseBuildDirector(builder);
+            System.out.println(carBuildDirector.construct());
+
+            /* Construct a wooden house */
+            builder = new WoodenHouseBuilder();
+            carBuildDirector = new HouseBuildDirector(builder);
+            System.out.println(carBuildDirector.construct());
+        }
+    }
+
+
+<b>Output</b>
+
+Constructing House 
+ FloorType: concrete
+ WallType:  concrete
+ RoofType:  concrete
+
+Constructing House 
+ FloorType: wood
+ WallType:  wood
+ RoofType:  wood  
+                </code>
+              </pre>
+              </div>
+              <div class="mdl-cell mdl-cell--12-col"><p><h3 class="mdl-cell mdl-cell--12-col mdl-typography--headline">优点</h3></p>
+              <div >
+                  <ul>
+                    <li>构造对象可以由Director控制</li>
+                    <li>在必须完成许多操作来构建对象时很有用</li>
+                    <li>避免伸缩构造模式</li>
+                  </ul>
+              </div>
+              </div>
+              <div class="mdl-cell mdl-cell--12-col"><p><h3 class="mdl-cell mdl-cell--12-col mdl-typography--headline">缺点</h3></p>
+              <div >
+                  <ul>
+                    <li>如果需要可变对象，则不合适</li>
+                  </ul>
+              </div>
+              </div>
+              <div class="mdl-cell mdl-cell--12-col"><p><h3 class="mdl-cell mdl-cell--12-col mdl-typography--headline">真实世界例子</h3></p>
+              <HR style="FILTER: progid:DXImageTransform.Microsoft.Shadow(color:#987cb9,direction:145,strength:15)" width="100%" color=#987cb9 SIZE=1>
+               <p>
+                  建造房屋 - 我们需要告诉建筑师我们想要什么作为建筑的一部分。 然后，建筑师设计并建造建筑物。 只有在所有内容都实施后，它才会被移交。 我们没有“部分”建造房屋（这是不安全的）。
+                </p>
+              </div>
+              <div class="mdl-cell mdl-cell--12-col"><p><h3 class="mdl-cell mdl-cell--12-col mdl-typography--headline">Java SDK 例子</h3></p>
+              <div >
+                  <ul>
+                    <li>java.lang.StringBuilder append()</li>
+                    <li>java.lang.StringBuffer append()</li>
+                    <li>java.nio.ByteBuffer put()</li>
+                    <li>javax.swing.GroupLayout.Group addComponent()</li>
+                    <li>java.lang.Appendable implementations</li>
+                  </ul>
+              </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <footer class="mdl-mini-footer">
+          <div class="footer-container">
+            <div class="mdl-logo">Copyright &copy; 2019 <a href="http://chunsheng.me" target="_blank">chunsheng.me</a></div>
+          </div>
+        </footer>
+      </main>
+      <script src="https://code.getmdl.io/1.3.0/material.min.js" defer></script>
+    </div>
+  </body>
+</html>

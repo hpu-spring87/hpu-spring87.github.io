@@ -70,7 +70,7 @@
 1. Define interfaces for different types products/objects. 
    Each family will have all these parts.
 
-    package com.jaypeesoft.dp.abstractfactory;
+    package com.chunsheng.gof.abstractfactory;
 
     public interface Engine {
 
@@ -80,7 +80,7 @@
 
     }
 
-    package com.jaypeesoft.dp.abstractfactory;
+    package com.chunsheng.gof.abstractfactory;
 
     public interface Tyre {
 
@@ -92,7 +92,7 @@
    Classes are access protected to prohibit instantiations in client 
    modules using the 'new' operator.
 
-    package com.jaypeesoft.dp.abstractfactory;
+    package com.chunsheng.gof.abstractfactory;
 
     class CarEngine implements Engine {
 
@@ -112,7 +112,7 @@
       }
 
     }
-    package com.jaypeesoft.dp.abstractfactory;
+    package com.chunsheng.gof.abstractfactory;
 
     class TruckEngine implements Engine {
 
@@ -132,7 +132,7 @@
       }
 
     }
-    package com.jaypeesoft.dp.abstractfactory;
+    package com.chunsheng.gof.abstractfactory;
 
     class CarTyre implements Tyre {
 
@@ -147,7 +147,7 @@
       }
 
     }
-    package com.jaypeesoft.dp.abstractfactory;
+    package com.chunsheng.gof.abstractfactory;
 
     class TruckTyre implements Tyre {
 
@@ -167,7 +167,7 @@
    Clients can use this method to get an object the required factory. 
    This example uses both Singleton and Factory Method patterns for better design.
 
-    package com.jaypeesoft.dp.abstractfactory;
+    package com.chunsheng.gof.abstractfactory;
 
     public abstract class Factory {
 
@@ -214,7 +214,7 @@
 4. Create Factory implementations. 
    Classes are protected to prohibit direct access in client modules.
 
-    package com.jaypeesoft.dp.abstractfactory;
+    package com.chunsheng.gof.abstractfactory;
 
     class CarFactory extends Factory {
 
@@ -230,7 +230,7 @@
 
     }
 
-    package com.jaypeesoft.dp.abstractfactory;
+    package com.chunsheng.gof.abstractfactory;
 
     public class TruckFactory extends Factory {
 
@@ -251,14 +251,14 @@
 5. The client code. Client is exposed to only the 
    Abstract Factory class and the interfaces.
 
-    package com.jaypeesoft.dp.client;
+    package com.chunsheng.gof.client;
 
     import java.util.Scanner;
 
-    import com.jaypeesoft.dp.abstractfactory.Engine;
-    import com.jaypeesoft.dp.abstractfactory.Factory;
-    import com.jaypeesoft.dp.abstractfactory.Tyre;
-    import com.jaypeesoft.dp.abstractfactory.UnknownVehicleException;
+    import com.chunsheng.gof.abstractfactory.Engine;
+    import com.chunsheng.gof.abstractfactory.Factory;
+    import com.chunsheng.gof.abstractfactory.Tyre;
+    import com.chunsheng.gof.abstractfactory.UnknownVehicleException;
 
     public class AbstractFactoryClient {
 
