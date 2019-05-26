@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Singleton(单例)</title>
+    <meta name="Singleton(单例)" content="chunsheng.me 归档详情"/>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;amp;lang=en" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css" rel="stylesheet">
+    <link href="../../../styles/main.css" rel="stylesheet">
+  </head>
+  <body id="top">
+    <link href="http://cdn.bootcss.com/highlight.js/8.0/styles/monokai_sublime.min.css" rel="stylesheet">  
+    <script src="http://cdn.bootcss.com/highlight.js/8.0/highlight.min.js"></script>  
+    <script >hljs.initHighlightingOnLoad();</script>
+
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header"><a href="../contact.html" id="contact-button" class="mdl-button mdl-button--fab mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--accent mdl-color-text--accent-contrast mdl-shadow--4dp"><i class="material-icons">mail</i></a>
+      <header class="mdl-layout__header mdl-layout__header--waterfall site-header">
+        <div class="mdl-layout__header-row site-logo-row"><span class="mdl-layout__title">
+            <div class="site-logo"></div><span class="site-description">Singleton(单例)</span></span></div>
+        <div class="mdl-layout__header-row site-navigation-row mdl-layout--large-screen-only">
+          <nav class="mdl-navigation mdl-typography--body-1-force-preferred-font"><a class="mdl-navigation__link" href="../../../index.html">首页</a><a class="mdl-navigation__link" href="../../../portfolio.html">归档</a><a class="mdl-navigation__link" href="../../../about.html">关于</a><!-- <a class="mdl-navigation__link" href="contact.html">联系</a> -->
+          </nav>
+        </div>
+      </header>
+      <div class="mdl-layout__drawer mdl-layout--small-screen-only">
+        <nav class="mdl-navigation mdl-typography--body-1-force-preferred-font"><a class="mdl-navigation__link" href="../../../index.html">首页</a><a class="mdl-navigation__link" href="../../../portfolio.html">归档</a><a class="mdl-navigation__link" href="../../../about.html">关于</a><!-- <a class="mdl-navigation__link" href="contact.html">联系</a> -->
+        </nav>
+      </div>
+      <main class="mdl-layout__content">
+        <div class="site-content">
+          <div class="mdl-grid site-max-width">
+            <div class="mdl-cell mdl-cell--12-col mdl-card mdl-shadow--4dp page-content">
+              <div class="mdl-card__title">
+                <h1 class="mdl-card__title-text"><b>Singleton(单例))</b></h1>
+              </div>
+              <div class="mdl-cell mdl-cell--12-col"><p><h3 class="mdl-cell mdl-cell--12-col mdl-typography--headline">使用场景</h3></p>
+              <div >
+                  <ul>
+                    <li>应用程序只需要一个类的一个实例</li>
+                    <li>完全控制实例创建</li>
+                  </ul>
+              </div>
+              </div>
+              <div class="mdl-cell mdl-cell--12-col"><p><h3 class="mdl-cell mdl-cell--12-col mdl-typography--headline">目的</h3></p>
+                确保一个类只有一个实例，并提供一个全局的访问点。
+              </div>
+               <div class="mdl-cell mdl-cell--12-col"><p><h3 class="mdl-cell mdl-cell--12-col mdl-typography--headline">组件</h3></p>
+                <div >
+                    <ul>
+                      <li>单例</li>
+                    </ul>
+                </div>
+              </div>
+              <div class="mdl-cell mdl-cell--12-col"><p><h3 class="mdl-cell mdl-cell--12-col mdl-typography--headline">结构体</h3></p>
+                <div class="mdl-card__media">
+                  <img class="article-image" src="../../../img/gof/singleton.jpg" border="0" alt="Portfolio Page">
+                </div>
+              </div>
+              <div class="mdl-cell mdl-cell--12-col"><p><h3 class="mdl-cell mdl-cell--12-col mdl-typography--headline">代码实现</h3></p>
+              <pre>
+                <code class="lang-java">
+使用静态实例和私有构造函数创建Singleton类，提供静态方法以允许访问此仅有的实例。
+
+
+1. 创建一个单例.
+
+package me.chunsheng.gof.singleton;
+
+/**
+ * @author wei_spring
+ * @projectName Doraemon
+ * @description: 创建类-> Singleton
+ * @date 2019-05-2617:19
+ */
+public class Singleton {
+
+    //为什么要静态呢? 静态方法不能访问非静态成员变量
+    private static Singleton singleton = null;
+
+    //私有构造必须有，这个很容易忘记
+    private Singleton() {
+    }
+
+    public static Singleton getInstance() {
+        if (singleton == null) {
+            synchronized (Singleton.class) {
+                //二次判空，为了同时锁住多个线程，进入到这个代码块
+                if (singleton == null) {
+                    singleton = new Singleton();
+                }
+            }
+        }
+        return singleton;
+    }
+
+    public void printObj() {
+        System.out.println("object 唯一标识:" + System.identityHashCode(this));
+    }
+
+}
+
+  
+
+2. Client.
+ 
+package me.chunsheng.gof.singleton;
+
+/**
+ * @author wei_spring
+ * @projectName Doraemon
+ * @description: 创建类-> SingletonClient
+ * @date 2019-05-2617:52
+ */
+public class SingletonClient {
+
+
+    public static void main(String[] args) {
+        Singleton singleton1 = Singleton.getInstance();
+        singleton1.printObj();
+
+        Singleton singleton2 = Singleton.getInstance();
+        singleton2.printObj();
+    }
+
+
+}
+
+
+<b>Output</b>
+object 唯一标识:1627674070
+object 唯一标识:1627674070
+
+Process finished with exit code 0
+                </code>
+              </pre>
+              </div>
+              <div class="mdl-cell mdl-cell--12-col"><p><h3 class="mdl-cell mdl-cell--12-col mdl-typography--headline">优点</h3></p>
+              <div >
+                  <ul>
+                    <li>实例化可以控制</li>
+                  </ul>
+              </div>
+              </div>
+              <div class="mdl-cell mdl-cell--12-col"><p><h3 class="mdl-cell mdl-cell--12-col mdl-typography--headline">缺点</h3></p>
+              <div >
+                  <ul>
+                    <li>持有全局状态的单例，可能导致问题，删除单例，需要特殊处理</li>
+                  </ul>
+              </div>
+              </div>
+              <div class="mdl-cell mdl-cell--12-col"><p><h3 class="mdl-cell mdl-cell--12-col mdl-typography--headline">真实世界例子</h3></p>
+              <HR style="FILTER: progid:DXImageTransform.Microsoft.Shadow(color:#987cb9,direction:145,strength:15)" width="100%" color=#987cb9 SIZE=1>
+               <p>
+                  总统
+                </p>
+              </div>
+              <div class="mdl-cell mdl-cell--12-col"><p><h3 class="mdl-cell mdl-cell--12-col mdl-typography--headline">例子</h3></p>
+              <div >
+                  <ul>
+                    <li>日志类</li>
+                    <li>Window管理类</li>
+                    <li>打印机后台程序</li>
+                  </ul>
+              </div>
+              </div>
+              <div class="mdl-cell mdl-cell--12-col"><p><h3 class="mdl-cell mdl-cell--12-col mdl-typography--headline">Java SDK 例子</h3></p>
+              <div >
+                  <ul>
+                    <li>java.lang.Runtime.getRuntime()</li>
+                    <li>java.util.logging.LogManager.getLogManager</li>
+                    <li>java.lang.System.getSecurityManager</li>
+                  </ul>
+              </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <footer class="mdl-mini-footer">
+          <div class="footer-container">
+            <div class="mdl-logo">Copyright &copy; 2019 <a href="http://chunsheng.me" target="_blank">chunsheng.me</a></div>
+          </div>
+        </footer>
+      </main>
+      <script src="https://code.getmdl.io/1.3.0/material.min.js" defer></script>
+    </div>
+  </body>
+</html>
